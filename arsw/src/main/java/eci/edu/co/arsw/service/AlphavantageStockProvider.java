@@ -1,16 +1,17 @@
 package eci.edu.co.arsw.service;
 
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import eci.edu.co.arsw.model.PruebaModel;
 
+/**
+ * Proveedor de datos de acciones usando la API de Alphavantage.
+ * Implementa la interfaz Provider y obtiene datos históricos en distintos intervalos.
+ */
 @Service
 public class AlphavantageStockProvider implements Provider {
     @Value("${alphavantage.api.key}")
@@ -18,6 +19,12 @@ public class AlphavantageStockProvider implements Provider {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    /**
+     * Consulta el historial completo de una acción y lo estructura en distintos intervalos.
+     * @param symbol El símbolo de la acción.
+     * @return PruebaModel con los datos intradía, diarios, semanales y mensuales.
+     * @throws Exception Si ocurre un error en la consulta.
+     */
     @Override
     public PruebaModel fetchStockHistory(String symbol) throws Exception {
         PruebaModel history = new PruebaModel(symbol);
@@ -28,6 +35,14 @@ public class AlphavantageStockProvider implements Provider {
         return history;
     }
 
+    /**
+     * Consulta los datos históricos desde Alphavantage según el tipo de serie.
+     * @param symbol Símbolo de la acción.
+     * @param function Función de la API (tipo de serie temporal).
+     * @param interval Intervalo si aplica.
+     * @return Mapa con las fechas y precios de cierre.
+     * @throws Exception Si ocurre un error en la consulta.
+     */
     private Map<String, Double> fetchHistory(String symbol, String function, String interval) throws Exception {
         String url = "https://www.alphavantage.co/query?function=" + function +
                 "&symbol=" + symbol +

@@ -13,8 +13,6 @@ Este proyecto tiene como objetivo implementar una solución práctica en la que 
 
 - **Java** (Spring Boot)
 - **Maven** para gestión de dependencias
-- **Docker** (opcional para despliegue)
-- **Git** para control de versiones
 
 ## Instalación
 
@@ -43,10 +41,6 @@ Este proyecto tiene como objetivo implementar una solución práctica en la que 
 1. Ejecuta la aplicación:
    ```bash
    mvn spring-boot:run
-   ```
-2. Accede a la interfaz o endpoints desde tu navegador o cliente REST en: 
-   ```
-   http://localhost:8080/
    ```
 
 ## Estructura del Proyecto
